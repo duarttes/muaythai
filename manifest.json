@@ -1,0 +1,15 @@
+{
+  "name": "Campo de Treino — Muay Thai & Força",
+  "short_name": "Treino",
+  "description": "Agenda, musculação, muay thai em casa, mobilidade e acompanhamento.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#14100e",
+  "theme_color": "#14100e",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

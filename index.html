@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Campo de Treino — Muay Thai & Força</title>
+<meta name="description" content="Programa de treino: agenda semanal, musculação para potência, muay thai em casa, mobilidade e acompanhamento corporal.">
+<meta property="og:title" content="Campo de Treino — Muay Thai & Força">
+<meta property="og:description" content="Agenda semanal, musculação para potência, muay thai em casa, mobilidade e acompanhamento corporal.">
+<meta property="og:image" content="icon-512.png">
+<meta property="og:type" content="website">
+<link rel="icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#14100e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Treino">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+  :root{
+    --bg:#14100e;
+    --surface:#1e1714;
+    --surface-2:#2a221d;
+    --ink:#ede6d8;
+    --muted:#9a8f80;
+    --red:#e23b2e;
+    --red-deep:#a61f19;
+    --gold:#c9a24b;
+    --line:rgba(237,230,216,.08);
+    --line-strong:rgba(237,230,216,.16);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    padding-bottom:60px;
+  }
+  /* ---------- HEADER ---------- */
+  header{
+    padding:34px 20px 22px;
+    border-bottom:1px solid var(--line-strong);
+    position:relative;
+    overflow:hidden;
+  }
+  header::after{
+    content:"";position:absolute;right:-40px;top:-40px;
+    width:180px;height:180px;border-radius:50%;
+    border:2px solid var(--red-deep);opacity:.25;
+  }
+  .eyebrow{
+    font-family:'Oswald',sans-serif;
+    text-transform:uppercase;letter-spacing:.28em;
+    font-size:11px;color:var(--gold);font-weight:500;
+  }
+  h1{
+    font-family:'Oswald',sans-serif;font-weight:700;
+    text-transform:uppercase;letter-spacing:-.01em;
+    font-size:clamp(30px,9vw,46px);line-height:.98;margin-top:6px;
+  }
+  h1 span{color:var(--red)}
+  .sub{color:var(--muted);font-size:14px;margin-top:10px;max-width:44ch}
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky;top:0;z-index:20;
+    background:rgba(20,16,14,.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+    display:flex;gap:4px;overflow-x:auto;
+    padding:8px 12px;scrollbar-width:none;
+  }
+  nav::-webkit-scrollbar{display:none}
+  .tab{
+    flex:0 0 auto;
+    font-family:'Oswald',sans-serif;font-weight:500;
+    text-transform:uppercase;letter-spacing:.08em;font-size:13px;
+    color:var(--muted);background:none;border:none;cursor:pointer;
+    padding:9px 14px;border-radius:8px;white-space:nowrap;
+    transition:color .18s,background .18s;
+  }
+  .tab:hover{color:var(--ink)}
+  .tab.active{color:var(--bg);background:var(--red)}
+  .tab:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  /* ---------- PANELS ---------- */
+  main{padding:22px 16px;max-width:760px;margin:0 auto}
+  .panel{display:none;animation:fade .3s ease}
+  .panel.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .intro{color:var(--muted);font-size:14.5px;margin-bottom:22px;padding:14px 16px;
+    background:var(--surface);border-left:3px solid var(--gold);border-radius:0 8px 8px 0}
+  .intro strong{color:var(--ink)}
+  /* round header */
+  .round{
+    display:flex;align-items:baseline;gap:12px;margin:26px 0 14px;
+    padding-bottom:8px;border-bottom:1px solid var(--line-strong);
+  }
+  .round .no{
+    font-family:'Oswald',sans-serif;font-weight:700;font-size:13px;
+    color:var(--bg);background:var(--gold);border-radius:4px;
+    padding:2px 8px;letter-spacing:.1em;
+  }
+  .round h2{
+    font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;
+    letter-spacing:.04em;font-size:19px;
+  }
+  .round .tag{margin-left:auto;font-size:11px;color:var(--muted);
+    font-family:'Oswald',sans-serif;letter-spacing:.12em;text-transform:uppercase}
+  /* exercise card */
+  .ex{
+    display:flex;align-items:center;gap:14px;
+    background:var(--surface);border:1px solid var(--line);
+    border-radius:11px;padding:13px 15px;margin-bottom:9px;
+    transition:border-color .18s;
+  }
+  .ex:hover{border-color:var(--line-strong)}
+  .ex .body{flex:1;min-width:0}
+  .ex .name{font-weight:600;font-size:15px}
+  .ex .meta{color:var(--muted);font-size:12.5px;margin-top:2px}
+  .ex .reps{
+    font-family:'Oswald',sans-serif;font-weight:600;font-size:16px;
+    color:var(--gold);white-space:nowrap;letter-spacing:.02em;
+  }
+  .see{
+    flex:0 0 auto;display:inline-flex;align-items:center;gap:5px;
+    font-family:'Oswald',sans-serif;font-size:11.5px;font-weight:500;
+    text-transform:uppercase;letter-spacing:.08em;text-decoration:none;
+    color:var(--ink);background:var(--surface-2);
+    border:1px solid var(--line-strong);border-radius:7px;
+    padding:7px 10px;transition:background .18s,border-color .18s;
+  }
+  .see:hover{background:var(--red-deep);border-color:var(--red)}
+  .see:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .see svg{width:11px;height:11px;fill:var(--red)}
+  .see:hover svg{fill:var(--ink)}
+  /* week card */
+  .week{display:grid;gap:8px}
+  .day{
+    display:flex;align-items:center;gap:14px;
+    background:var(--surface);border:1px solid var(--line);
+    border-radius:11px;padding:14px 16px;
+  }
+  .day.rest{border-style:dashed;opacity:.75}
+  .day .dow{
+    font-family:'Oswald',sans-serif;font-weight:600;font-size:13px;
+    text-transform:uppercase;letter-spacing:.1em;
+    width:44px;color:var(--gold);flex:0 0 auto;
+  }
+  .day .what{flex:1}
+  .day .what b{font-weight:600;font-size:15px;display:block}
+  .day .what small{color:var(--muted);font-size:12.5px}
+  .pill{
+    font-family:'Oswald',sans-serif;font-size:10.5px;font-weight:600;
+    text-transform:uppercase;letter-spacing:.1em;
+    padding:4px 9px;border-radius:20px;flex:0 0 auto;
+  }
+  .pill.mt{background:rgba(226,59,46,.15);color:var(--red)}
+  .pill.forca{background:rgba(201,162,75,.15);color:var(--gold)}
+  .pill.rest{background:var(--surface-2);color:var(--muted)}
+  /* notes / tips */
+  .note{
+    font-size:13.5px;color:var(--muted);
+    background:var(--surface);border-radius:10px;padding:13px 15px;
+    margin-top:14px;border:1px solid var(--line);
+  }
+  .note b{color:var(--ink)}
+  .note.warn{border-color:rgba(226,59,46,.3)}
+  .note.warn b{color:var(--red)}
+  ul.clean{list-style:none;margin-top:6px}
+  ul.clean li{padding:5px 0 5px 20px;position:relative;font-size:14px}
+  ul.clean li::before{content:"";position:absolute;left:0;top:12px;
+    width:6px;height:6px;background:var(--red);border-radius:50%}
+  footer{text-align:center;color:var(--muted);font-size:12px;padding:30px 20px 10px}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">Campo de Treino · Matheus</div>
+  <h1>Muay Thai<br>& <span>Força</span></h1>
+  <p class="sub">Alto nível sem competir. Programa completo: academia, luta em casa, mobilidade e acompanhamento do corpo.</p>
+</header>
+
+<nav id="nav"></nav>
+
+<main>
+  <!-- AGENDA -->
+  <section class="panel active" id="agenda">
+    <div class="intro"><strong>Regra da semana:</strong> muay thai na academia só de segunda a sexta; musculação abre todo dia. Por isso a luta cai seg/qua/sex e a força ter/qui/sáb. Domingo é recuperação — não é folga passiva, é o que te mantém inteiro.</div>
+    <div class="week" id="week"></div>
+    <div class="note"><b>Pode ir mais fundo?</b> Se quiser 4 dias de luta, troque o sábado de musculação por muay thai em casa (saco/aparador) e mova a força pro domingo. Só nunca zere a recuperação — descanso é onde o corpo constrói.</div>
+  </section>
+
+  <!-- MUSCULAÇÃO -->
+  <section class="panel" id="musculacao">
+    <div class="intro">Foco em <strong>potência e explosão</strong>, não hipertrofia pura. Suba rápido, desça controlado. <strong>Não treine até a falha</strong> — deixe 1–2 reps na reserva pra render na luta. Toque em <b>Ver</b> pra assistir a execução.</div>
+    <div id="muscBody"></div>
+    <div class="note warn"><b>Evite:</b> perna até a exaustão na véspera de um muay thai cheio de chute. Se as pernas travarem, inverta a ordem da semana.</div>
+  </section>
+
+  <!-- MUAY THAI EM CASA -->
+  <section class="panel" id="casa">
+    <div class="intro">Na academia você aprende a técnica; em casa você ganha <strong>volume e condicionamento</strong>. Round = 3 min de trabalho, 1 min de descanso. O <strong>aparador</strong> precisa de alguém segurando (sua esposa pode ajudar); o <strong>saco</strong> é solo.</div>
+    <div id="casaBody"></div>
+  </section>
+
+  <!-- MOBILIDADE -->
+  <section class="panel" id="mobilidade">
+    <div class="intro"><strong>Chute alto vem da mobilidade de quadril</strong>, não de força. Faça o bloco dinâmico <strong>antes</strong> de treinar e o estático <strong>depois</strong>, com músculo quente. Segure cada alongamento estático 30–45s.</div>
+    <div id="mobBody"></div>
+  </section>
+
+  <!-- FORTALECIMENTO -->
+  <section class="panel" id="forte">
+    <div class="intro">Trabalho de <strong>durabilidade</strong>: pescoço, core, tornozelo, equilíbrio e pegada. É o que evita lesão e sustenta a técnica. 2–3x por semana, em casa, sem equipamento.</div>
+    <div id="forteBody"></div>
+  </section>
+
+  <!-- CORPO & DIETA -->
+  <section class="panel" id="corpo">
+    <div class="intro">Sua <strong>balança de bioimpedância</strong> é ouro pra isso — ela separa gordura de músculo, coisa que o peso sozinho esconde. Me manda os números e eu monto o acompanhamento com gráficos de tendência aqui no chat.</div>
+    <div id="corpoBody"></div>
+  </section>
+</main>
+
+<footer>Feito pra durar rounds. Ajuste a carga conforme evolui.</footer>
+
+<script>
+const yt = q => `https://www.youtube.com/results?search_query=${encodeURIComponent(q)}`;
+const playIcon = '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+
+/* ---------- DATA ---------- */
+const tabs = [
+  ['agenda','Agenda'],['musculacao','Musculação'],['casa','Muay Thai em Casa'],
+  ['mobilidade','Mobilidade'],['forte','Fortalecimento'],['corpo','Corpo & Dieta']
+];
+
+const week = [
+  ['Seg','Muay Thai','Técnica na academia','mt'],
+  ['Ter','Musculação — Inferiores','Potência de chute e base','forca'],
+  ['Qua','Muay Thai','Técnica na academia','mt'],
+  ['Qui','Musculação — Superiores','Soco e clinch','forca'],
+  ['Sex','Muay Thai','Técnica na academia','mt'],
+  ['Sáb','Musculação — Full body','Explosão + condicionamento','forca'],
+  ['Dom','Recuperação','Mobilidade e alongamento','rest'],
+];
+
+const musc = [
+  {no:'Dia A',title:'Inferiores',tag:'Potência de chute',ex:[
+    ['Salto no caixote','Explosão — faça descansado, no início','4 × 3','box jump como fazer técnica'],
+    ['Agachamento livre','Força de base e chute','4 × 5','agachamento livre execução correta'],
+    ['Levantamento terra romeno','Cadeia posterior, motor do quadril','3 × 8','levantamento terra romeno rdl execução'],
+    ['Agachamento búlgaro','Unilateral + equilíbrio na perna de apoio','3 × 8 /perna','agachamento búlgaro execução'],
+    ['Elevação de panturrilha','Tornozelo estável no chute','3 × 15','elevação de panturrilha em pé'],
+    ['Prancha lateral','Core anti-flexão lateral','3 × 40s /lado','prancha lateral como fazer'],
+  ]},
+  {no:'Dia B',title:'Superiores',tag:'Soco e clinch',ex:[
+    ['Arremesso de medicine ball','Potência de empurrar — soco','4 × 5','medicine ball chest throw exercício'],
+    ['Supino reto','Força de soco reto','4 × 5','supino reto execução correta'],
+    ['Remada curvada','Puxar, postura, clinch','4 × 6','remada curvada com barra execução'],
+    ['Desenvolvimento militar','Ombro e sustentação de guarda','3 × 6','desenvolvimento militar ombro execução'],
+    ['Barra fixa / puxada alta','Dorsais, controle no clinch','3 × máx','barra fixa pull up execução'],
+    ['Farmer\'s walk','Pegada forte pro clinch','3 × 30m','farmers walk caminhada do fazendeiro'],
+  ]},
+  {no:'Dia C',title:'Full body + condicionamento',tag:'Explosão total',ex:[
+    ['Levantamento terra','Potência de corpo inteiro','4 × 3','levantamento terra deadlift execução'],
+    ['Arremesso rotacional (medicine ball)','Rotação = chute circular e cruzado','4 × 5 /lado','rotational medicine ball throw exercício'],
+    ['Landmine press','Core rotacional aplicado','3 × 8','landmine press exercício'],
+    ['Afundo caminhando','Unilateral e coordenação','3 × 10 /perna','afundo caminhando walking lunge'],
+    ['Roda abdominal','Core anti-extensão','3 × 10','roda abdominal ab wheel como fazer'],
+    ['Condicionamento intervalado','30s forte / 30s leve — bike, corda ou kettlebell','8–10 rounds','kettlebell swing exercício'],
+  ]},
+];
+
+const casa = [
+  {no:'Sessão 1',title:'Técnica (saco)',tag:'Precisão',ex:[
+    ['Corda ou shadow boxing','Aquecimento, solta o corpo','3 rounds','pular corda boxe aquecimento'],
+    ['Saco — jab, direto, cruzado','Um combo por round, guarda sempre alta','3 rounds','muay thai combinações no saco básico'],
+    ['Saco — teep e chute circular','Foco no giro de quadril e retomada de guarda','3 rounds','muay thai chute circular saco técnica'],
+    ['Shadow — combos livres','Fluidez, sem força','2 rounds','muay thai shadow boxing iniciante'],
+  ]},
+  {no:'Sessão 2',title:'Potência & Condicionamento (saco)',tag:'Gás',ex:[
+    ['Shadow','Aquecimento','2 rounds','muay thai shadow boxing aquecimento'],
+    ['Saco — chutes fortes','Potência máxima, contato com a canela','4 rounds','muay thai chute forte no saco'],
+    ['Chutes contínuos alternados','Ritmo e gás — alterna as pernas','3 × 20 chutes','muay thai chutes contínuos condicionamento'],
+    ['Joelhadas no saco','Projeta o quadril','3 × 20','muay thai joelhada no saco'],
+    ['Explosão de socos','10s all-out a cada 30s','6–8 tiros','boxe socos explosivos no saco'],
+  ]},
+  {no:'Sessão 3',title:'Aparador (com parceiro)',tag:'Reação',ex:[
+    ['Aquecimento — shadow','Solta ombro e quadril','2 rounds','muay thai aquecimento shadow'],
+    ['Combos no aparador','Quem segura chama o golpe, você reage','4 rounds','muay thai treino de aparador manopla'],
+    ['Defesa + contra-ataque','Bloqueia/esquiva e devolve','2 rounds','muay thai defesa e contra-ataque manopla'],
+  ]},
+];
+
+const mob = [
+  {no:'Pré',title:'Aquecimento dinâmico',tag:'Antes do treino',ex:[
+    ['Balanço de perna (frente e lado)','Abre o quadril pro chute','2 × 12 /perna','balanço de perna leg swings mobilidade'],
+    ['Círculos de quadril','Solta a articulação','2 × 10','mobilidade de quadril círculos'],
+    ['Agachamento profundo com pausa','Segura 3s no fundo','× 8','agachamento profundo mobilidade cossack'],
+    ['Rotação de tronco em pé','Prepara a rotação do chute/soco','2 × 12','rotação de tronco aquecimento'],
+    ['Joelho ao peito caminhando','Ativa flexor e glúteo','× 10 /perna','caminhada joelho ao peito aquecimento'],
+  ]},
+  {no:'Pós',title:'Alongamento estático',tag:'Depois do treino · 30–45s cada',ex:[
+    ['Alongamento de isquiotibiais','Chute alto e teep','× 2 /perna','alongamento isquiotibiais posterior coxa'],
+    ['Flexor de quadril (afundo)','Solta o quadril pra chutar alto','× 2 /perna','alongamento flexor de quadril afundo'],
+    ['Adutores — rã / borboleta','O mais importante pro chute alto','× 2','alongamento adutores rã borboleta'],
+    ['Panturrilha na parede','Tornozelo e teep','× 2 /perna','alongamento panturrilha parede'],
+    ['Torção de coluna deitado','Solta a lombar','× 2 /lado','alongamento torção de coluna deitado'],
+    ['Ombro e tríceps','Recuperação da guarda','× 2 /lado','alongamento ombro tríceps'],
+  ]},
+];
+
+const forte = [
+  {no:'Bloco',title:'Durabilidade & Prehab',tag:'2–3x/semana · casa',ex:[
+    ['Isometria de pescoço','Aguenta impacto — empurra a mão contra a cabeça','3 × 20s /direção','exercício isométrico de pescoço'],
+    ['Ponte de glúteo com rotação','Core e quadril','3 × 10','ponte de glúteo com rotação core'],
+    ['Panturrilha unipodal','Tornozelo estável no chute','3 × 15 /perna','elevação panturrilha uma perna'],
+    ['Apoio unipodal olhos fechados','Equilíbrio — o que mais acelera o chute','3 × 30s /perna','equilíbrio uma perna olhos fechados'],
+    ['Superman / extensão lombar','Protege a lombar','3 × 12','superman exercício lombar'],
+    ['Pendurar na barra (dead hang)','Pegada e ombro','3 × máx','dead hang pendurar na barra'],
+  ]},
+];
+
+/* ---------- RENDER ---------- */
+const el = (h)=>{const t=document.createElement('template');t.innerHTML=h.trim();return t.content.firstChild;};
+
+// nav
+const nav=document.getElementById('nav');
+tabs.forEach(([id,label],i)=>{
+  const b=el(`<button class="tab${i===0?' active':''}" data-t="${id}">${label}</button>`);
+  b.onclick=()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    document.getElementById(id).classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  };
+  nav.appendChild(b);
+});
+
+// week
+const wk=document.getElementById('week');
+week.forEach(([dow,what,sub,type])=>{
+  const labels={mt:'Muay Thai',forca:'Força',rest:'Descanso'};
+  wk.appendChild(el(`
+    <div class="day ${type==='rest'?'rest':''}">
+      <div class="dow">${dow}</div>
+      <div class="what"><b>${what}</b><small>${sub}</small></div>
+      <span class="pill ${type}">${labels[type]}</span>
+    </div>`));
+});
+
+// generic block renderer (exercise sections)
+function renderBlocks(containerId,data){
+  const c=document.getElementById(containerId);
+  data.forEach(block=>{
+    c.appendChild(el(`
+      <div class="round">
+        <span class="no">${block.no}</span>
+        <h2>${block.title}</h2>
+        <span class="tag">${block.tag}</span>
+      </div>`));
+    block.ex.forEach(([name,meta,reps,query])=>{
+      c.appendChild(el(`
+        <div class="ex">
+          <div class="body">
+            <div class="name">${name}</div>
+            <div class="meta">${meta}</div>
+          </div>
+          <div class="reps">${reps}</div>
+          <a class="see" href="${yt(query)}" target="_blank" rel="noopener">${playIcon} Ver</a>
+        </div>`));
+    });
+  });
+}
+renderBlocks('muscBody',musc);
+renderBlocks('casaBody',casa);
+renderBlocks('mobBody',mob);
+renderBlocks('forteBody',forte);
+
+// corpo & dieta
+document.getElementById('corpoBody').innerHTML = `
+  <div class="round"><span class="no">Medir</span><h2>Como pesar certo</h2><span class="tag">1x por semana</span></div>
+  <ul class="clean">
+    <li>Sempre <b>de manhã, em jejum</b>, depois do banheiro e antes de beber água.</li>
+    <li>Mesmo dia da semana, mesma balança, pés secos.</li>
+    <li>Anote <b>peso, % de gordura, massa muscular, água corporal</b> e taxa metabólica.</li>
+    <li>Não surte com o dia a dia — o que importa é a <b>tendência de 4+ semanas</b>.</li>
+  </ul>
+  <div class="round"><span class="no">Metas</span><h2>Nutrição (recomp)</h2><span class="tag">Diário</span></div>
+  <ul class="clean">
+    <li>Calorias: <b>~2.300–2.700 kcal</b> conforme o dia de treino.</li>
+    <li>Proteína: <b>180–200 g</b> — inegociável pra manter músculo.</li>
+    <li>Whey + creatina que você já usa cobrem bem a proteína.</li>
+    <li>Pese os alimentos; registro em tempo real funciona melhor que plano fixo pra você.</li>
+  </ul>
+  <div class="note"><b>Próximo passo:</b> me manda a leitura atual da bioimpedância (peso, %GC, massa muscular). Eu monto o gráfico de tendência e a gente acompanha semana a semana aqui no chat — incluindo o placar diário de calorias e proteína, como você já faz.</div>
+`;
+</script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+}
+</script>
+</body>
+</html>
