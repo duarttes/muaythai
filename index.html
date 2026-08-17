@@ -119,13 +119,33 @@
   .round .tag{margin-left:auto;font-size:11px;color:var(--muted);
     font-family:'Oswald',sans-serif;letter-spacing:.12em;text-transform:uppercase}
   /* exercise card */
+  .ex-item{margin-bottom:9px}
   .ex{
     display:flex;align-items:center;gap:14px;
     background:var(--surface);border:1px solid var(--line);
-    border-radius:11px;padding:13px 15px;margin-bottom:9px;
+    border-radius:11px;padding:13px 15px;
     transition:border-color .18s;
   }
   .ex:hover{border-color:var(--line-strong)}
+  /* player embutido */
+  .ex-item.open .ex{
+    border-color:var(--line-strong);
+    border-bottom-color:transparent;
+    border-radius:11px 11px 0 0;
+  }
+  .player{
+    border:1px solid var(--line-strong);border-top:0;
+    border-radius:0 0 11px 11px;overflow:hidden;background:#000;
+  }
+  .player .frame{position:relative;padding-top:56.25%;height:0}
+  .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .player .credit{
+    display:flex;gap:10px;align-items:center;
+    background:var(--surface-2);padding:8px 13px;
+    font-size:11.5px;color:var(--muted);
+  }
+  .player .credit a{color:var(--gold);text-decoration:none;margin-left:auto;white-space:nowrap}
+  .player .credit a:hover{text-decoration:underline}
   .ex .body{flex:1;min-width:0}
   .ex .name{font-weight:600;font-size:15px}
   .ex .meta{color:var(--muted);font-size:12.5px;margin-top:2px}
@@ -140,11 +160,14 @@
     color:var(--ink);background:var(--surface-2);
     border:1px solid var(--line-strong);border-radius:7px;
     padding:7px 10px;transition:background .18s,border-color .18s;
+    cursor:pointer;
   }
   .see:hover{background:var(--red-deep);border-color:var(--red)}
   .see:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-  .see svg{width:11px;height:11px;fill:var(--red)}
+  .see svg{width:11px;height:11px;fill:var(--red);transition:fill .18s}
   .see:hover svg{fill:var(--ink)}
+  .ex-item.open .see{background:var(--red);border-color:var(--red);color:var(--bg)}
+  .ex-item.open .see svg{fill:var(--bg)}
   /* week card */
   .week{display:grid;gap:8px}
   .day{
@@ -244,6 +267,59 @@ const yt = q => `https://www.youtube.com/results?search_query=${encodeURICompone
 const playIcon = '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
 
 /* ---------- DATA ---------- */
+/* Video de execucao por exercicio. Verificado em 2026-08-16: existe e
+   permite embed (playableInEmbed). Exercicio sem entrada cai no link
+   de busca do YouTube. */
+const videos = {
+  'Salto no caixote':{id:'LeiLzSU3OXE',channel:'Made Possible Personal Training',title:'High Box Jump Technique'},
+  'Agachamento livre':{id:'DOU7aDli5a4',channel:'Junior De Lima',title:'AGACHAMENTO LIVRE - EXECUÇÃO CORRETA'},
+  'Levantamento terra romeno':{id:'3YmW6SEkat0',channel:'Larissa Tenório',title:'Como Executar LEVANTAMENTO TERRA ROMENO (RDL) do Jeito Certo'},
+  'Agachamento búlgaro':{id:'kuZOMsm5vTU',channel:'David Lisboa Personal',title:'AGACHAMENTO BÚLGARO - EXECUÇÃO'},
+  'Elevação de panturrilha':{id:'a1s-U4UQkIg',channel:'Jonathan Augusto Fit',title:'PANTURRILHA EM PÉ NO CHÃO #execução #perna'},
+  'Prancha lateral':{id:'2NjO5KrlVEM',channel:'Rodrigo Zago Treinador',title:'Como fazer prancha lateral'},
+  'Arremesso de medicine ball':{id:'Qwz67a7S9BQ',channel:'Brian Schwabe',title:'Supine Medicine Ball chest throws (Upper Body Power)'},
+  'Supino reto':{id:'pCPyqW60Wuk',channel:'Treino Mestre',title:'Supino reto com barra:  Como fazer, Dicas e Postura'},
+  'Remada curvada':{id:'_vO2dAnz__c',channel:'Via Brasil Club',title:'Remada curvada com barra – execução correta – Via Brasil Club'},
+  'Desenvolvimento militar':{id:'aee3VLz4ATQ',channel:'Personal Gabriel Oliveira',title:'DESENVOLVIMENTO MILITAR - EXECUÇÃO - APRENDA EM MENOS DE 1 MIN.'},
+  'Barra fixa / puxada alta':{id:'AveJ5SXC7vI',channel:'Via Brasil Club',title:'Barra fixa – execução correta - via brasil club'},
+  'Farmer\'s walk':{id:'ooY6pF0H1BA',channel:'Letícia Alves Treinadora',title:'Farmer walk (Caminhada do fazendeiro)'},
+  'Levantamento terra':{id:'GntwG0iiSZ4',channel:'Junior Mantoani | VERT Gym',title:'DEADLIFT/ LEVANTAMENTO TERRA | Execução correta | Coach Junior Mantoani'},
+  'Arremesso rotacional (medicine ball)':{id:'862y57v-u5k',channel:'Muscle & Motion',title:'Medicine-Ball Rotational Throw'},
+  'Landmine press':{id:'qFXojXa-RCU',channel:'mountaindog1',title:'Landmine Press para a saúde dos ombros (FAÇA AGORA)'},
+  'Afundo caminhando':{id:'gfJ8OlHr5Pw',channel:'EDU TEAM PERSONAL',title:'WALKING LUNGE / AFUNDO ANDANDO (treinamento funcional) by EDU'},
+  'Roda abdominal':{id:'vRi105QOGKU',channel:'Fit Nerdz',title:'ABDOMINAL RODINHA - 3 DICAS PARA FAZER CERTO'},
+  'Condicionamento intervalado':{id:'1cVT3ee9mgU',channel:'StrongFirst',title:'Kettlebell Swing'},
+  'Corda ou shadow boxing':{id:'kqCmRxMJ8k0',channel:'Murilo Alves Boxe',title:'Como Pular Corda Igual um Boxeador Profissional | Aprenda do Jeito Certo '},
+  'Saco — jab, direto, cruzado':{id:'Acc7R4cr6F4',channel:'Sean "Muay Thai Guy" Fagan',title:'20 combinações de saco de pancadas de Muay Thai para iniciantes'},
+  'Saco — teep e chute circular':{id:'S-2cThKVGDc',channel:'Champions Factory',title:'Técnica de chute semi circular  de Muaythai com o Bi campeão Mundial'},
+  'Shadow — combos livres':{id:'lm3Rr1I2m48',channel:'YOKKAO',title:'Saenchai shadowboxing at the new YOKKAO Muay Thai Camp in Bangkok'},
+  'Shadow':{id:'L2YES6C0jWs',channel:'AXING Muay THAI',title:'Muay Thai shadow boxing workout'},
+  'Saco — chutes fortes':{id:'817JwzEP9LI',channel:'Caio Nunes Muay Thai',title:'Como chutar forte no Muay Thai'},
+  'Chutes contínuos alternados':{id:'lUc8AoC3bWY',channel:'KK Multes',title:'Chutes Seguidos tipo Muay Thai pra ganhar explosão e condicionamento físico nos chutes'},
+  'Joelhadas no saco':{id:'YJH8HfIWg9M',channel:'HC Thai',title:'Sequência com Joelho e Cotovelo para iniciantes no Muaythai'},
+  'Explosão de socos':{id:'_ixy2NNPPUU',channel:'Ready to Fight',title:'Aprenda a treinar com o saco de pancadas - Parte 1 [ RTF #153 ]'},
+  'Aquecimento — shadow':{id:'7vl7KU6v4ho',channel:'Photo Muaythai',title:'Muay Thai fighter Buakaw Banchamek - Shadow Boxing'},
+  'Combos no aparador':{id:'O3T7bUhsBXE',channel:'Professor Mario Nakao - lutas e Personal Trainer',title:'TREINO DE MUAY THAI | MANOPLA | APARADOR'},
+  'Defesa + contra-ataque':{id:'UPyBPmZ4SDM',channel:'Caio Nunes Muay Thai',title:'Contra ataque no Muay Thai: aprenda os 3 diferentes tempos'},
+  'Balanço de perna (frente e lado)':{id:'I76mXa0Ce5U',channel:'Leonardo Micussi',title:'Mobilidade de quadril (balanço da perna)/Hip mobility (leg swing)'},
+  'Círculos de quadril':{id:'b3qf3YzFgmU',channel:'Bruno Leal Online',title:'Mobilidade de quadril - círculos'},
+  'Agachamento profundo com pausa':{id:'I5b31hYAbls',channel:'Ricardo Pereira I Treinador & Nutri',title:'Cossack Squats - AGACHAMENTO PROFUNDO DINÂMICO'},
+  'Rotação de tronco em pé':{id:'E-7VgjXqv5g',channel:'Ana Prim',title:'Aquecimento - rotação de tronco'},
+  'Joelho ao peito caminhando':{id:'3LuFkDBfGQ4',channel:'Andy Grannell',title:'Aquecimento Dinâmico: Joelho para Peito'},
+  'Alongamento de isquiotibiais':{id:'vQERlIS0I9o',channel:'Mauricio Kido',title:'#isquiotibiais #alongamento de #coxas posterior'},
+  'Flexor de quadril (afundo)':{id:'Vn6GZP_UuMs',channel:'Strength & Sport',title:'Alongamento do flexor do quadril em pé (posição de afundo)'},
+  'Adutores — rã / borboleta':{id:'8xnhUqiILcE',channel:'Fisic Academia',title:'Alongamento Adutores Borboleta'},
+  'Panturrilha na parede':{id:'UwZql3MUeX0',channel:'Marcus Abade Personal',title:'Alongamento Panturrilha Parede'},
+  'Torção de coluna deitado':{id:'fyXTODMUB5o',channel:'Marcus Abade Personal',title:'Mobilidade Torácica Torção Deitado Lateral'},
+  'Ombro e tríceps':{id:'XNsaSkLoYKY',channel:'Leandro Twin',title:'Como fazer alongamento ombro'},
+  'Isometria de pescoço':{id:'kwKq9n8ima4',channel:'Washington Park Chiropractic',title:'Como realizar exercícios isométricos de reabilitação do pescoço para dor, força e estabilidade no...'},
+  'Ponte de glúteo com rotação':{id:'ZSGjXXXIGvE',channel:'Academia Atletas',title:'Livre - vermelho - ponte bipodal com rotação de tronco'},
+  'Panturrilha unipodal':{id:'7XK8_t_HiSg',channel:'Dr Luciano Alves Neves',title:'Panturrilha em Pé Unilateral'},
+  'Apoio unipodal olhos fechados':{id:'4HtOeds_vyw',channel:'RunDNA',title:'Equilíbrio em uma perna só com os olhos fechados'},
+  'Superman / extensão lombar':{id:'17ElZ1pYuJE',channel:'Guilherme Stellbrink I FisioPrev ',title:'Como fortalecer a lombar  - Superman deitado - Ativação lombar'},
+  'Pendurar na barra (dead hang)':{id:'0r6xaOpKwuE',channel:'Coach Léo Marchioli',title:'DEAD HANG | Demonstração de exercício'},
+};
+
 const tabs = [
   ['agenda','Agenda'],['musculacao','Musculação'],['casa','Muay Thai em Casa'],
   ['mobilidade','Mobilidade'],['forte','Fortalecimento'],['corpo','Corpo & Dieta']
@@ -365,6 +441,45 @@ week.forEach(([dow,what,sub,type])=>{
     </div>`));
 });
 
+/* ---------- PLAYER ---------- */
+// Fecha o player aberto: limpar o innerHTML derruba o iframe e para o audio.
+function closePlayers(){
+  document.querySelectorAll('.ex-item.open').forEach(o=>{
+    o.classList.remove('open');
+    o.querySelector('.see').setAttribute('aria-expanded','false');
+    const p = o.querySelector('.player');
+    if(p) p.remove();
+  });
+}
+
+function togglePlayer(item, v){
+  const wasOpen = item.classList.contains('open');
+  closePlayers();
+  if(wasOpen) return;
+  item.classList.add('open');
+  item.querySelector('.see').setAttribute('aria-expanded','true');
+  // youtube-nocookie: nao grava cookie de rastreio enquanto o video nao roda.
+  const src = `https://www.youtube-nocookie.com/embed/${v.id}?autoplay=1&rel=0&modestbranding=1`;
+  item.appendChild(el(`
+    <div class="player">
+      <div class="frame">
+        <iframe src="${src}" title="${v.title.replace(/"/g,'&quot;')}"
+          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+          referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="credit">
+        <span>${v.channel}</span>
+        <a href="https://www.youtube.com/watch?v=${v.id}" target="_blank" rel="noopener">Abrir no YouTube</a>
+      </div>
+    </div>`));
+  item.scrollIntoView({block:'nearest',behavior:'smooth'});
+}
+
+// Trocar de aba fecha qualquer video tocando.
+document.addEventListener('click', e => {
+  if(e.target.classList && e.target.classList.contains('tab')) closePlayers();
+});
+
 // generic block renderer (exercise sections)
 function renderBlocks(containerId,data){
   const c=document.getElementById(containerId);
@@ -376,15 +491,24 @@ function renderBlocks(containerId,data){
         <span class="tag">${block.tag}</span>
       </div>`));
     block.ex.forEach(([name,meta,reps,query])=>{
-      c.appendChild(el(`
-        <div class="ex">
-          <div class="body">
-            <div class="name">${name}</div>
-            <div class="meta">${meta}</div>
+      const v = videos[name];
+      // Sem video embutivel confirmado, cai pro link de busca (comportamento antigo).
+      const trigger = v
+        ? `<button class="see" type="button" aria-expanded="false">${playIcon} Ver</button>`
+        : `<a class="see" href="${yt(query)}" target="_blank" rel="noopener">${playIcon} Ver</a>`;
+      const item = el(`
+        <div class="ex-item">
+          <div class="ex">
+            <div class="body">
+              <div class="name">${name}</div>
+              <div class="meta">${meta}</div>
+            </div>
+            <div class="reps">${reps}</div>
+            ${trigger}
           </div>
-          <div class="reps">${reps}</div>
-          <a class="see" href="${yt(query)}" target="_blank" rel="noopener">${playIcon} Ver</a>
-        </div>`));
+        </div>`);
+      if(v) item.querySelector('.see').onclick = () => togglePlayer(item, v);
+      c.appendChild(item);
     });
   });
 }

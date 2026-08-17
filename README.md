@@ -15,11 +15,19 @@ PWA de treino pessoal: agenda semanal, musculação voltada a potência, muay th
 | Fortalecimento | Prehab — pescoço, core, tornozelo, equilíbrio e pegada |
 | Corpo & Dieta | Protocolo de pesagem por bioimpedância e metas de nutrição |
 
-Cada exercício tem um botão **Ver** que abre a busca da execução no YouTube.
+Cada exercício tem um botão **Ver** que abre o vídeo da execução em um player embutido no próprio card, sem sair do site.
 
 ## Stack
 
 HTML/CSS/JS puro, sem build. Todo o conteúdo vive em arrays no `<script>` do `index.html` — para editar um treino, mude o array correspondente (`musc`, `casa`, `mob`, `forte`).
+
+## Vídeos
+
+O objeto `videos` mapeia nome do exercício → `{id, channel, title}`. Os 47 IDs foram verificados: o vídeo existe e tem `playableInEmbed: true` (permite ser embutido). O player usa `youtube-nocookie.com` e só é criado ao clicar em **Ver** — fechar o card remove o iframe, o que interrompe a reprodução.
+
+Exercício sem entrada no mapa cai automaticamente no link de busca do YouTube, então dá pra adicionar exercícios sem quebrar nada.
+
+Para trocar um vídeo, edite o `id` correspondente. Se um vídeo sair do ar ou passar a bloquear embed, o card mostra o erro do player do YouTube — nesse caso o link "Abrir no YouTube" no rodapé do player continua funcionando.
 
 ## PWA
 
