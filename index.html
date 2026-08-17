@@ -31,6 +31,10 @@
     --gold:#c9a24b;
     --line:rgba(237,230,216,.08);
     --line-strong:rgba(237,230,216,.16);
+    /* Borda esquerda do conteudo: main tem max-width 760 e padding 16,
+       entao a coluna util comeca em 50% - 364px. Header e nav usam a
+       mesma conta pra nao flutuar nas bordas no desktop. */
+    --pad-x:max(16px,calc(50% - 364px));
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
@@ -44,15 +48,18 @@
   }
   /* ---------- HEADER ---------- */
   header{
-    padding:34px 20px 22px;
+    padding:34px 16px 22px;
     border-bottom:1px solid var(--line-strong);
-    position:relative;
     overflow:hidden;
   }
-  header::after{
+  header .wrap{
+    max-width:728px;margin:0 auto;position:relative;
+  }
+  header .wrap::after{
     content:"";position:absolute;right:-40px;top:-40px;
     width:180px;height:180px;border-radius:50%;
     border:2px solid var(--red-deep);opacity:.25;
+    pointer-events:none;
   }
   .eyebrow{
     font-family:'Oswald',sans-serif;
@@ -73,7 +80,7 @@
     backdrop-filter:blur(8px);
     border-bottom:1px solid var(--line);
     display:flex;gap:4px;overflow-x:auto;
-    padding:8px 12px;scrollbar-width:none;
+    padding:8px var(--pad-x);scrollbar-width:none;
   }
   nav::-webkit-scrollbar{display:none}
   .tab{
@@ -181,9 +188,11 @@
 </head>
 <body>
 <header>
-  <div class="eyebrow">Campo de Treino</div>
-  <h1>Muay Thai<br>& <span>Força</span></h1>
-  <p class="sub">Alto nível sem competir. Programa completo: academia, luta em casa, mobilidade e acompanhamento do corpo.</p>
+  <div class="wrap">
+    <div class="eyebrow">Campo de Treino</div>
+    <h1>Muay Thai<br>& <span>Força</span></h1>
+    <p class="sub">Alto nível sem competir. Programa completo: academia, luta em casa, mobilidade e acompanhamento do corpo.</p>
+  </div>
 </header>
 
 <nav id="nav"></nav>
