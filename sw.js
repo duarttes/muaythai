@@ -1,5 +1,5 @@
 // Campo de Treino — service worker
-const CACHE = 'treino-v8';
+const CACHE = 'treino-v9';
 const FONTS = 'treino-fonts';
 const CORE = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png'];
 

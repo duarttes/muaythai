@@ -23,7 +23,11 @@ HTML/CSS/JS puro, sem build. Todo o conteúdo vive em arrays no `<script>` do `i
 
 ## Vídeos
 
-O objeto `videos` mapeia nome do exercício → `{id, channel, title}`. Os 47 IDs foram verificados: o vídeo existe e tem `playableInEmbed: true` (permite ser embutido). O player usa `youtube-nocookie.com` e só é criado ao clicar em **Ver** — fechar o card remove o iframe, o que interrompe a reprodução.
+O objeto `videos` mapeia nome do exercício → `{id, channel, title}`, ou → um **array** desses objetos quando o exercício tem mais de uma variação (ex.: "Barra fixa / puxada alta"). No array cada item ganha um `label`, que vira o cabeçalho dourado acima do respectivo player.
+
+Todos os IDs foram verificados: o vídeo existe e tem `playableInEmbed: true` (permite ser embutido). O player usa `youtube-nocookie.com` e só é criado ao clicar em **Ver** — fechar o card remove o iframe, o que interrompe a reprodução.
+
+Com um vídeo só, ele inicia sozinho. Com dois ou mais, nenhum inicia — senão tocariam ao mesmo tempo.
 
 Exercício sem entrada no mapa cai automaticamente no link de busca do YouTube, então dá pra adicionar exercícios sem quebrar nada.
 

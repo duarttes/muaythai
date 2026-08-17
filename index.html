@@ -137,6 +137,13 @@
     border:1px solid var(--line-strong);border-top:0;
     border-radius:0 0 11px 11px;overflow:hidden;background:#000;
   }
+  .player .vid + .vid{border-top:1px solid var(--line-strong)}
+  .player .vlabel{
+    font-family:'Oswald',sans-serif;font-size:11px;font-weight:600;
+    text-transform:uppercase;letter-spacing:.12em;color:var(--gold);
+    background:var(--surface);padding:7px 13px;
+    border-bottom:1px solid var(--line);
+  }
   .player .frame{position:relative;padding-top:56.25%;height:0}
   .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
   .player .credit{
@@ -296,17 +303,17 @@ const videos = {
   'Supino reto':{id:'pCPyqW60Wuk',channel:'Treino Mestre',title:'Supino reto com barra:  Como fazer, Dicas e Postura'},
   'Remada curvada':{id:'_vO2dAnz__c',channel:'Via Brasil Club',title:'Remada curvada com barra – execução correta – Via Brasil Club'},
   'Desenvolvimento militar':{id:'aee3VLz4ATQ',channel:'Personal Gabriel Oliveira',title:'DESENVOLVIMENTO MILITAR - EXECUÇÃO - APRENDA EM MENOS DE 1 MIN.'},
-  'Barra fixa / puxada alta':{id:'AveJ5SXC7vI',channel:'Via Brasil Club',title:'Barra fixa – execução correta - via brasil club'},
+  'Barra fixa / puxada alta':[{label:'Barra fixa',id:'AveJ5SXC7vI',channel:'Via Brasil Club',title:'Barra fixa – execução correta'},{label:'Puxada alta',id:'uAnrJBnxrZ0',channel:'Treino Mestre',title:'Puxada alta com triângulo - Execução, postura e dica'}],
   'Farmer\'s walk':{id:'ooY6pF0H1BA',channel:'Letícia Alves Treinadora',title:'Farmer walk (Caminhada do fazendeiro)'},
   'Levantamento terra':{id:'GntwG0iiSZ4',channel:'Junior Mantoani | VERT Gym',title:'DEADLIFT/ LEVANTAMENTO TERRA | Execução correta | Coach Junior Mantoani'},
   'Arremesso rotacional (medicine ball)':{id:'862y57v-u5k',channel:'Muscle & Motion',title:'Medicine-Ball Rotational Throw'},
   'Landmine press':{id:'qFXojXa-RCU',channel:'mountaindog1',title:'Landmine Press para a saúde dos ombros (FAÇA AGORA)'},
   'Afundo caminhando':{id:'gfJ8OlHr5Pw',channel:'EDU TEAM PERSONAL',title:'WALKING LUNGE / AFUNDO ANDANDO (treinamento funcional) by EDU'},
   'Roda abdominal':{id:'vRi105QOGKU',channel:'Fit Nerdz',title:'ABDOMINAL RODINHA - 3 DICAS PARA FAZER CERTO'},
-  'Condicionamento intervalado':{id:'1cVT3ee9mgU',channel:'StrongFirst',title:'Kettlebell Swing'},
-  'Corda ou shadow boxing':{id:'kqCmRxMJ8k0',channel:'Murilo Alves Boxe',title:'Como Pular Corda Igual um Boxeador Profissional | Aprenda do Jeito Certo '},
+  'Condicionamento intervalado':[{label:'Kettlebell swing',id:'1cVT3ee9mgU',channel:'StrongFirst',title:'Kettlebell Swing'},{label:'Corda',id:'kqCmRxMJ8k0',channel:'Murilo Alves Boxe',title:'Como Pular Corda Igual um Boxeador Profissional'}],
+  'Corda ou shadow boxing':[{label:'Corda',id:'kqCmRxMJ8k0',channel:'Murilo Alves Boxe',title:'Como Pular Corda Igual um Boxeador Profissional'},{label:'Shadow boxing',id:'hG4-9Q_eYo4',channel:'umComo',title:'Como Fazer SOMBRA no MUAY THAI Corretamente'}],
   'Saco — jab, direto, cruzado':{id:'Acc7R4cr6F4',channel:'Sean "Muay Thai Guy" Fagan',title:'20 combinações de saco de pancadas de Muay Thai para iniciantes'},
-  'Saco — teep e chute circular':{id:'S-2cThKVGDc',channel:'Champions Factory',title:'Técnica de chute semi circular  de Muaythai com o Bi campeão Mundial'},
+  'Saco — teep e chute circular':[{label:'Teep',id:'8VDaPEj73Yk',channel:'Caio Nunes Muay Thai',title:'O teep do Muay Thai passo a passo'},{label:'Chute circular',id:'S-2cThKVGDc',channel:'Champions Factory',title:'Técnica de chute semi circular de Muaythai'}],
   'Shadow — combos livres':{id:'hG4-9Q_eYo4',channel:'umComo',title:'Como Fazer SOMBRA no MUAY THAI Corretamente 🥊 Shadowboxing para Iniciantes'},
   'Shadow':{id:'L2YES6C0jWs',channel:'AXING Muay THAI',title:'Muay Thai shadow boxing workout'},
   'Saco — chutes fortes':{id:'817JwzEP9LI',channel:'Caio Nunes Muay Thai',title:'Como chutar forte no Muay Thai'},
@@ -323,7 +330,7 @@ const videos = {
   'Joelho ao peito caminhando':{id:'3LuFkDBfGQ4',channel:'Andy Grannell',title:'Aquecimento Dinâmico: Joelho para Peito'},
   'Alongamento de isquiotibiais':{id:'vQERlIS0I9o',channel:'Mauricio Kido',title:'#isquiotibiais #alongamento de #coxas posterior'},
   'Flexor de quadril (afundo)':{id:'Vn6GZP_UuMs',channel:'Strength & Sport',title:'Alongamento do flexor do quadril em pé (posição de afundo)'},
-  'Adutores — rã / borboleta':{id:'KqPKm3kxC40',channel:'Lukas Rodrigues Treinador',title:'Alongamento dos adutores da coxa | Alongamento dos adutores de quadril'},
+  'Adutores — rã / borboleta':[{label:'Rã',id:'p0BagtWwjak',channel:'FELIPE PEDROSA',title:'Pose do sapo (alongamento de adutores)'},{label:'Borboleta',id:'aIXxIgon8MQ',channel:'Marcus Abade Personal',title:'Alongamento Adutores Borboleta'}],
   'Panturrilha na parede':{id:'UwZql3MUeX0',channel:'Marcus Abade Personal',title:'Alongamento Panturrilha Parede'},
   'Torção de coluna deitado':{id:'fyXTODMUB5o',channel:'Marcus Abade Personal',title:'Mobilidade Torácica Torção Deitado Lateral'},
   'Ombro':{id:'XNsaSkLoYKY',channel:'Leandro Twin',title:'Como fazer alongamento ombro'},
@@ -481,22 +488,30 @@ function togglePlayer(item, v){
   b.setAttribute('aria-expanded','true');
   b.setAttribute('aria-label','Fechar vídeo');
   b.innerHTML = `${closeIcon} Fechar`;
-  // youtube-nocookie: nao grava cookie de rastreio enquanto o video nao roda.
-  const src = `https://www.youtube-nocookie.com/embed/${v.id}?autoplay=1&rel=0&modestbranding=1`;
-  const player = el(`
-    <div class="player">
-      <div class="frame">
-        <iframe src="${src}" title="${v.title.replace(/"/g,'&quot;')}"
-          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-          referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
-      </div>
-      <div class="credit">
-        <span class="chan">${v.channel}</span>
-        <a href="https://www.youtube.com/watch?v=${v.id}" target="_blank" rel="noopener">Abrir no YouTube</a>
-        <button class="close" type="button">${closeIcon} Fechar</button>
-      </div>
-    </div>`);
-  player.querySelector('.close').onclick = closePlayers;
+  // Um exercicio pode ter mais de um video (ex.: "Barra fixa / puxada alta").
+  const list = Array.isArray(v) ? v : [v];
+  // Com dois videos ninguem toca sozinho, senao os dois tocariam juntos.
+  const auto = list.length === 1 ? 1 : 0;
+  const player = el('<div class="player"></div>');
+  list.forEach(x => {
+    // youtube-nocookie: nao grava cookie de rastreio enquanto o video nao roda.
+    const src = `https://www.youtube-nocookie.com/embed/${x.id}?autoplay=${auto}&rel=0&modestbranding=1`;
+    player.appendChild(el(`
+      <div class="vid">
+        ${x.label ? `<div class="vlabel">${x.label}</div>` : ''}
+        <div class="frame">
+          <iframe src="${src}" title="${x.title.replace(/"/g,'&quot;')}"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="credit">
+          <span class="chan">${x.channel}</span>
+          <a href="https://www.youtube.com/watch?v=${x.id}" target="_blank" rel="noopener">Abrir no YouTube</a>
+          <button class="close" type="button">${closeIcon} Fechar</button>
+        </div>
+      </div>`));
+  });
+  player.querySelectorAll('.close').forEach(c => c.onclick = closePlayers);
   item.appendChild(player);
   item.scrollIntoView({block:'nearest',behavior:'smooth'});
 }
